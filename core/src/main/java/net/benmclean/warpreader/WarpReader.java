@@ -319,6 +319,7 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
+        voxelSprite.addScale(distance - initialDistance, distance - initialDistance);
         return false;
     }
 
