@@ -2,14 +2,14 @@
 eclipse.project.name = appName + '-core'
 
 dependencies {
-  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-  compile "com.sudoplay.joise:joise:$joiseVersion"
-  compile "com.github.czyzby:noise4j:$noise4jVersion"
-  compile "com.squidpony:squidlib-extra:$squidLibExtraVersion"
-  compile "com.squidpony:squidlib-util:$squidLibUtilVersion"
-  compile "com.github.tommyettinger:regexodus:$regExodusVersion"
-  compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
-  compile "com.squidpony:squidlib:$squidLibVersion"
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+    compile "com.sudoplay.joise:joise:$joiseVersion"
+    compile "com.github.czyzby:noise4j:$noise4jVersion"
+    compile "com.squidpony:squidlib-extra:$squidLibExtraVersion"
+    compile "com.squidpony:squidlib-util:$squidLibUtilVersion"
+    compile "com.github.tommyettinger:regexodus:$regExodusVersion"
+    compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
+    compile "com.squidpony:squidlib:$squidLibVersion"
+    compile 'com.github.tommyettinger:WarpWriter:8e2d2200d7'
 }
-        

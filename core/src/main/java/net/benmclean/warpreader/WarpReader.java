@@ -3,9 +3,12 @@ package net.benmclean.warpreader;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import warpwriter.view.VoxelSprite;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. Listens to user input. */
 public class WarpReader extends InputAdapter implements ApplicationListener {
+    protected VoxelSprite voxelSprite;
+
     @Override
     public void create() {
         Gdx.input.setInputProcessor(this);
