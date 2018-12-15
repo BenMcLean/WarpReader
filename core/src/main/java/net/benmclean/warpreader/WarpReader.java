@@ -283,13 +283,37 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         return false;
     }
 
+    public static final float touchThreshold = 5f;
+    boolean panning = false;
+    float panX=0, panY=0;
+
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        if (!panning) {
+            panX=x;
+            panY=y;
+            panning = true;
+        }
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
+        panning = false;
+        final float deltaX = x - panX, deltaY = x - panY;
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > touchThreshold) {
+                voxelSprite.clockZ();
+            } else if (deltaX < touchThreshold * -1f) {
+                voxelSprite.counterZ();
+            }
+        } else {
+            if (voxelSprite.angle() < 3 && deltaY > touchThreshold) {
+                voxelSprite.setAngle(voxelSprite.angle() + 1);
+            } else if (voxelSprite.angle() > 1 && deltaY < touchThreshold * -1f) {
+                voxelSprite.setAngle(voxelSprite.angle() - 1);
+            }
+        }
         return false;
     }
 
