@@ -36,7 +36,7 @@ dependencies {
   compile "com.squidpony:squidlib-util:$squidLibUtilVersion:sources"
   compile "com.github.tommyettinger:regexodus:$regExodusVersion:sources"
   compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion:sources"
-  compile "com.squidpony:squidlib:$squidLibVersion:sources"
+  compile "com.github.squidpony.squidlib:squidlib:$squidLibVersion:sources"
 
 }
 
