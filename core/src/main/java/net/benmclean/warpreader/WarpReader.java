@@ -23,7 +23,6 @@ import warpwriter.model.IModel;
 import warpwriter.model.fetch.ArrayModel;
 import warpwriter.model.fetch.BoxModel;
 import warpwriter.model.fetch.ColorFetch;
-import warpwriter.view.Twilight;
 import warpwriter.view.VoxelSprite;
 import warpwriter.view.VoxelSpriteBatchRenderer;
 
@@ -128,28 +127,7 @@ public class WarpReader extends InputAdapter implements ApplicationListener {
     }
 
     public IModel model() {
-//        return new VoxelText()
-//                .setText(font, FakeLanguageGen.SIMPLISH.word(maker.rng.nextLong(), true))
-//                .setFill(ColorFetch.color(Coloring.rinsed("Powder Blue 3")))
-//                .setOutline(ColorFetch.color(Coloring.rinsed("Red 4")))
-//                .setDepth(5);
-        try {
-            //// loads Artillery.vox, which has a palette set in that model; this palette doesn't match Rinsed or Aurora
-//            final byte[][][] arr = VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream("HasOwnPalette/Artillery.vox")));
-            //// set the palette to the one from the vox model, using arbitraryTwilight()
-//            batchRenderer.set(batchRenderer.color().set(Twilight.arbitraryTwilight(VoxIO.lastPalette)));
-            batchRenderer.color().set(Twilight.arbitraryTwilight(Coloring.AURORA));
-            return new ArrayModel(
-                    maker.shipLargeRandomAurora()
-//                    arr
-                    //// Aurora folder has vox models with a different palette, which involves a different ITwilight.
-                    //VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream("Aurora/Warrior_Male_W.vox")))
-                    // If using Rinsed, use the line below instead of the one above.
-                    //maker.warriorRandom()
-            );
-        } catch (Exception e) {
-            return new ArrayModel(maker.warriorRandom());
-        }
+        return new ArrayModel(maker.warriorRandom());
     }
 
     @Override
@@ -212,6 +190,14 @@ public class WarpReader extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose() {
+        if (batch != null) batch.dispose();
+        if (font != null) font.dispose();
+        if (buffer != null) buffer.dispose();
+        if (screenTexture != null) screenTexture.dispose();
+        if (voxelSprite != null) voxelSprite.dispose();
+        if (batchRenderer != null) batchRenderer.dispose();
+        if (shader != null) shader.dispose();
+        if (defaultShader != null) defaultShader.dispose();
     }
 
     @Override
