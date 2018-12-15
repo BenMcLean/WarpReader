@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import squidpony.StringKit;
 import warpwriter.Coloring;
 import warpwriter.ModelMaker;
 import warpwriter.model.IModel;
@@ -50,7 +49,12 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     /**
      * This fragment shader draws a black outline around things.
      */
-    public static final String fragmentShader = "#version 150\n" +
+    public static final String fragmentShader = "#ifdef GL_ES\n" +
+            "#define LOWP lowp\n" +
+            "precision mediump float;\n" +
+            "#else\n" +
+            "#define LOWP\n" +
+            "#endif\n" +
             "varying vec2 v_texCoords;\n" +
             "varying vec4 v_color;\n" +
             "uniform float outlineH;\n" +
@@ -107,8 +111,7 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         batchRenderer = new VoxelSpriteBatchRenderer(batch);
 //        batchRenderer.set(batchRenderer.color().set(VoxelColor.AuroraTwilight)); // comment out to use Rinsed
         voxelSprite = new VoxelSprite()
-                .set(batchRenderer)
-                .setOffset(VIRTUAL_WIDTH / 2, 100);
+                .set(batchRenderer);
         makeModel();
 
         defaultShader = SpriteBatch.createDefaultShader();
@@ -150,10 +153,14 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
             batch.setProjectionMatrix(worldView.getCamera().combined);
             batch.begin();
 
-            font.draw(batch, StringKit.join(", ", voxelSprite.getModel().sizeX(), voxelSprite.getModel().sizeY(), voxelSprite.getModel().sizeZ()) + " (original)", 0, 80);
-            font.draw(batch, voxelSprite.turnModel().sizeX() + ", " + voxelSprite.turnModel().sizeY() + ", " + voxelSprite.turnModel().sizeZ() + " (modified)", 0, 60);
-            font.draw(batch, StringKit.join(", ", voxelSprite.turnModel().turner().rotation()) + " (rotation)", 0, 40);
+//            font.draw(batch, StringKit.join(", ", voxelSprite.getModel().sizeX(), voxelSprite.getModel().sizeY(), voxelSprite.getModel().sizeZ()) + " (original)", 0, 80);
+//            font.draw(batch, voxelSprite.turnModel().sizeX() + ", " + voxelSprite.turnModel().sizeY() + ", " + voxelSprite.turnModel().sizeZ() + " (modified)", 0, 60);
+//            font.draw(batch, StringKit.join(", ", voxelSprite.turnModel().turner().rotation()) + " (rotation)", 0, 40);
             font.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, 20);
+
+            voxelSprite.setOffset(VIRTUAL_WIDTH / 2,
+                    voxelSprite.angle() > 1 ? 5 : VIRTUAL_HEIGHT / 2
+            );
 
             voxelSprite.render();
 
@@ -270,6 +277,9 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+        voxelSprite.renderer().color().set(
+                voxelSprite.renderer().color().direction().clock()
+        );
         return false;
     }
 
@@ -283,15 +293,15 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         return false;
     }
 
-    public static final float touchThreshold = 5f;
+    public static final float touchThreshold = 0f;
     boolean panning = false;
-    float panX=0, panY=0;
+    float panX = 0, panY = 0;
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
         if (!panning) {
-            panX=x;
-            panY=y;
+            panX = x;
+            panY = y;
             panning = true;
         }
         return false;
@@ -300,7 +310,7 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
         panning = false;
-        final float deltaX = x - panX, deltaY = x - panY;
+        final float deltaX = x - panX, deltaY = y - panY;
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > touchThreshold) {
                 voxelSprite.clockZ();
@@ -317,9 +327,18 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         return false;
     }
 
+    public final static float minScale = 1f;
+    public final static float maxScale = 5f;
+
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        voxelSprite.addScale(distance - initialDistance, distance - initialDistance);
+        final float delta = (distance - initialDistance) / VIRTUAL_HEIGHT;
+        if (voxelSprite.scaleX() + delta > maxScale)
+            voxelSprite.setScale(maxScale);
+        else if (voxelSprite.scaleX() + delta < minScale)
+            voxelSprite.setScale(minScale);
+        else
+            voxelSprite.addScale(delta, delta);
         return false;
     }
 
