@@ -10,6 +10,6 @@ dependencies {
     compile "com.squidpony:squidlib-util:$squidLibUtilVersion"
     compile "com.github.tommyettinger:regexodus:$regExodusVersion"
     compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
-    compile "com.squidpony:squidlib:$squidLibVersion"
+    compile "com.github.SquidPony:SquidLib:$squidLibVersion"
     compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
 }
