@@ -86,10 +86,11 @@ public class WarpReader extends InputAdapter implements ApplicationListener {
     protected TextureRegion screenRegion;
     protected ModelMaker maker;
     protected VoxelSprite voxelSprite;
-    protected boolean box = false;
     protected VoxelSpriteBatchRenderer batchRenderer;
     protected ShaderProgram shader;
     protected ShaderProgram defaultShader;
+    protected boolean box = false;
+    protected boolean paused = false;
 
     @Override
     public void create() {
@@ -137,55 +138,59 @@ public class WarpReader extends InputAdapter implements ApplicationListener {
 
     @Override
     public void render() {
-        buffer.begin();
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        worldView.apply();
-        worldView.getCamera().position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0);
-        worldView.update(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-        batch.setProjectionMatrix(worldView.getCamera().combined);
-        batch.begin();
+        if (!paused) {
+            buffer.begin();
+            Gdx.gl.glClearColor(0, 0, 0, 0);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            worldView.apply();
+            worldView.getCamera().position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0);
+            worldView.update(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+            batch.setProjectionMatrix(worldView.getCamera().combined);
+            batch.begin();
 
-        font.draw(batch, StringKit.join(", ", voxelSprite.getModel().sizeX(), voxelSprite.getModel().sizeY(), voxelSprite.getModel().sizeZ()) + " (original)", 0, 80);
-        font.draw(batch, voxelSprite.turnModel().sizeX() + ", " + voxelSprite.turnModel().sizeY() + ", " + voxelSprite.turnModel().sizeZ() + " (modified)", 0, 60);
-        font.draw(batch, StringKit.join(", ", voxelSprite.turnModel().turner().rotation()) + " (rotation)", 0, 40);
-        font.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, 20);
+            font.draw(batch, StringKit.join(", ", voxelSprite.getModel().sizeX(), voxelSprite.getModel().sizeY(), voxelSprite.getModel().sizeZ()) + " (original)", 0, 80);
+            font.draw(batch, voxelSprite.turnModel().sizeX() + ", " + voxelSprite.turnModel().sizeY() + ", " + voxelSprite.turnModel().sizeZ() + " (modified)", 0, 60);
+            font.draw(batch, StringKit.join(", ", voxelSprite.turnModel().turner().rotation()) + " (rotation)", 0, 40);
+            font.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, 20);
 
-        voxelSprite.render();
+            voxelSprite.render();
 
-        batch.setColor(-0x1.fffffep126f); // white as a packed float, resets any color changes that the renderer made
-        batch.end();
-        buffer.end();
-        Gdx.gl.glClearColor(
-                ((backgroundColor >> 24) & 0xff) / 255f,
-                ((backgroundColor >> 16) & 0xff) / 255f,
-                ((backgroundColor >> 8) & 0xff) / 255f,
-                (backgroundColor & 0xff) / 255f
-        );
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        screenView.apply();
-        batch.setProjectionMatrix(screenView.getCamera().combined);
-        batch.begin();
-        screenTexture = buffer.getColorBufferTexture();
-        screenTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        screenRegion.setRegion(screenTexture);
-        screenRegion.flip(false, true);
+            batch.setColor(-0x1.fffffep126f); // white as a packed float, resets any color changes that the renderer made
+            batch.end();
+            buffer.end();
+            Gdx.gl.glClearColor(
+                    ((backgroundColor >> 24) & 0xff) / 255f,
+                    ((backgroundColor >> 16) & 0xff) / 255f,
+                    ((backgroundColor >> 8) & 0xff) / 255f,
+                    (backgroundColor & 0xff) / 255f
+            );
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            screenView.apply();
+            batch.setProjectionMatrix(screenView.getCamera().combined);
+            batch.begin();
+            screenTexture = buffer.getColorBufferTexture();
+            screenTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+            screenRegion.setRegion(screenTexture);
+            screenRegion.flip(false, true);
 
-        batch.setShader(shader);
-        shader.setUniformf("outlineH", 1f / VIRTUAL_HEIGHT);
-        shader.setUniformf("outlineW", 1f / VIRTUAL_WIDTH);
+            batch.setShader(shader);
+            shader.setUniformf("outlineH", 1f / VIRTUAL_HEIGHT);
+            shader.setUniformf("outlineW", 1f / VIRTUAL_WIDTH);
 
-        batch.draw(screenRegion, 0, 0);
-        batch.setShader(defaultShader);
-        batch.end();
+            batch.draw(screenRegion, 0, 0);
+            batch.setShader(defaultShader);
+            batch.end();
+        }
     }
 
     @Override
     public void pause() {
+        paused = true;
     }
 
     @Override
     public void resume() {
+        paused = false;
     }
 
     @Override
