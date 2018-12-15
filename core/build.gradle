@@ -11,5 +11,5 @@ dependencies {
     compile "com.github.tommyettinger:regexodus:$regExodusVersion"
     compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
     compile "com.squidpony:squidlib:$squidLibVersion"
-    compile 'com.github.tommyettinger:WarpWriter:8e2d2200d7'
+    compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
 }
