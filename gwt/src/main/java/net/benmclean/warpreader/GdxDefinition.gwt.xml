@@ -7,9 +7,10 @@
     <inherits name="com.github.czyzby.noise4j.Noise4J" />
     <inherits name="joise" />
     <inherits name="libgdx-utils" />
-    <inherits name="net.benmclean.warpreader.WarpReader" />
     <inherits name="regexodus" />
     <inherits name="squidlib-util" />
+    <inherits name="warpwriter" />
+    <inherits name="net.benmclean.warpreader.WarpReader" />
     <entry-point class="net.benmclean.warpreader.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
