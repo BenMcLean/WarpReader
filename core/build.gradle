@@ -1,6 +1,6 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
-
+sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
 dependencies {
     compile "com.badlogicgames.gdx:gdx:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
@@ -8,6 +8,6 @@ dependencies {
     compile "com.github.czyzby:noise4j:$noise4jVersion"
     compile "com.github.tommyettinger:regexodus:$regExodusVersion"
     compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
-    compile "com.github.SquidPony:SquidLib:$squidLibVersion"
+    compile "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion"
     compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
 }

@@ -1,7 +1,6 @@
 apply plugin: 'android'
 
 android {
-  buildToolsVersion '25.0.2'
   compileSdkVersion 25
   sourceSets {
     main {
@@ -10,11 +9,9 @@ android {
       aidl.srcDirs = ['src/main/java']
       renderscript.srcDirs = ['src/main/java']
       res.srcDirs = ['res']
-      assets.srcDirs = ['../assets']
+      //assets.srcDirs = ['../assets']
       jniLibs.srcDirs = ['libs']
     }
-
-    instrumentTest.setRoot('tests')
   }
   packagingOptions {
     // Preventing from license violations (more or less):

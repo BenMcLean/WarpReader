@@ -34,7 +34,9 @@ dependencies {
   compile "com.github.czyzby:noise4j:$noise4jVersion:sources"
   compile "com.github.tommyettinger:regexodus:$regExodusVersion:sources"
   compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion:sources"
-  compile "com.github.squidpony.squidlib:squidlib:$squidLibVersion:sources"
+  compile "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion:sources"
+  compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion:sources"
+
 
 }
 
