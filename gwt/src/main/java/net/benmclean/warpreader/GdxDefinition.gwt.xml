@@ -9,8 +9,6 @@
     <inherits name="libgdx-utils" />
     <inherits name="net.benmclean.warpreader.WarpReader" />
     <inherits name="regexodus" />
-    <inherits name="squidlib" />
-    <inherits name="squidlib-extra" />
     <inherits name="squidlib-util" />
     <entry-point class="net.benmclean.warpreader.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />

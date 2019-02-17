@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import warpwriter.Coloring;
 import warpwriter.ModelMaker;
 import warpwriter.model.IModel;
+import warpwriter.model.color.Colorizer;
 import warpwriter.model.fetch.ArrayModel;
 import warpwriter.model.fetch.BoxModel;
 import warpwriter.model.fetch.ColorFetch;
@@ -107,14 +108,15 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         screenView.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.enableBlending();
 
-        maker = new ModelMaker(12345);
+        maker = new ModelMaker(12345, Colorizer.RinsedColorizer);
         batchRenderer = new VoxelSpriteBatchRenderer(batch);
 //        batchRenderer.set(batchRenderer.color().set(VoxelColor.AuroraTwilight)); // comment out to use Rinsed
         voxelSprite = new VoxelSprite()
                 .set(batchRenderer)
                 .setOffset(VIRTUAL_WIDTH / 2, 3);
 
-        makeModel();
+        voxelSprite.set(new ArrayModel(maker.warriorRandom()));
+        //makeModel();
 
         defaultShader = SpriteBatch.createDefaultShader();
         shader = new ShaderProgram(vertexShader, fragmentShader);
@@ -135,7 +137,7 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     }
 
     public IModel model() {
-        return new ArrayModel(maker.warriorRandom());
+        return new ArrayModel(maker.shipLargeNoiseColorized());
     }
 
     @Override
@@ -349,4 +351,5 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     public void pinchStop() {
 
     }
+    
 }
