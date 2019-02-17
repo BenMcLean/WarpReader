@@ -111,7 +111,9 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         batchRenderer = new VoxelSpriteBatchRenderer(batch);
 //        batchRenderer.set(batchRenderer.color().set(VoxelColor.AuroraTwilight)); // comment out to use Rinsed
         voxelSprite = new VoxelSprite()
-                .set(batchRenderer);
+                .set(batchRenderer)
+                .setOffset(VIRTUAL_WIDTH / 2, 3);
+
         makeModel();
 
         defaultShader = SpriteBatch.createDefaultShader();
@@ -157,10 +159,6 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
 //            font.draw(batch, voxelSprite.turnModel().sizeX() + ", " + voxelSprite.turnModel().sizeY() + ", " + voxelSprite.turnModel().sizeZ() + " (modified)", 0, 60);
 //            font.draw(batch, StringKit.join(", ", voxelSprite.turnModel().turner().rotation()) + " (rotation)", 0, 40);
             font.draw(batch, Gdx.graphics.getFramesPerSecond() + " FPS", 0, 20);
-
-            voxelSprite.setOffset(VIRTUAL_WIDTH / 2,
-                    voxelSprite.angle() > 1 ? 5 : VIRTUAL_HEIGHT / 2
-            );
 
             voxelSprite.render();
 
