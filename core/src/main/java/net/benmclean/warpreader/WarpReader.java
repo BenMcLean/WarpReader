@@ -22,7 +22,7 @@ import warpwriter.model.fetch.ArrayModel;
 import warpwriter.model.fetch.BoxModel;
 import warpwriter.model.fetch.ColorFetch;
 import warpwriter.view.VoxelSprite;
-import warpwriter.view.VoxelSpriteBatchRenderer;
+import warpwriter.view.render.VoxelSpriteBatchRenderer;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. Listens to user input.
