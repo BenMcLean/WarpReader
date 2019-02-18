@@ -94,7 +94,7 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
     protected boolean box = false;
     protected boolean paused = false;
     protected InputMultiplexer multiplexer;
-    protected MenuScreen menuScreen;
+    public Game game;
 
     public WarpViewer() {
         create();
@@ -129,8 +129,6 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
-
-        menuScreen = new MenuScreen();
     }
 
     public void makeModel() {
@@ -282,6 +280,9 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
                 break;
             case Input.Keys.T: // try again
                 voxelSprite.reset();
+                break;
+            case Input.Keys.M:
+                game.setScreen(WarpReader.menuScreen);
                 break;
             case Input.Keys.ESCAPE:
                 Gdx.app.exit();

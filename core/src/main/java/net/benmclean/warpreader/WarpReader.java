@@ -2,12 +2,16 @@ package net.benmclean.warpreader;
 
 import com.badlogic.gdx.Game;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. Listens to user input.
- */
 public class WarpReader extends Game {
+    public static MenuScreen menuScreen;
+    public static WarpViewer warpViewer;
+
     @Override
     public void create() {
-        this.setScreen(new MenuScreen());
+        menuScreen = new MenuScreen();
+        menuScreen.game = this;
+        warpViewer = new WarpViewer();
+        warpViewer.game = this;
+        this.setScreen(warpViewer);
     }
 }

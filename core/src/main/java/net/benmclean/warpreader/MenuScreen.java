@@ -1,5 +1,6 @@
 package net.benmclean.warpreader;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,6 +17,7 @@ public class MenuScreen extends ScreenAdapter {
     public static final int VIRTUAL_WIDTH = 852;
     public static final int VIRTUAL_HEIGHT = 480;
 
+    public Game game;
     private Skin skin;
     private Stage stage;
 
@@ -39,7 +41,7 @@ public class MenuScreen extends ScreenAdapter {
         screenButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.setScreen(WarpReader.warpViewer);
             }
         });
         group.addActor(screenButton);
