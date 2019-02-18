@@ -25,10 +25,8 @@ import warpwriter.model.fetch.ColorFetch;
 import warpwriter.view.VoxelSprite;
 import warpwriter.view.render.VoxelSpriteBatchRenderer;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. Listens to user input.
- */
-public class WarpReader extends InputAdapter implements ApplicationListener, GestureDetector.GestureListener {
+public class WarpViewer extends InputAdapter implements ApplicationListener, GestureDetector.GestureListener, Screen {
+
     /**
      * This is the default vertex shader from libGDX.
      */
@@ -127,7 +125,6 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
-        Gdx.input.setInputProcessor(multiplexer);
 
         menuScreen = new MenuScreen();
     }
@@ -142,6 +139,16 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
 
     public IModel model() {
         return new ArrayModel(maker.shipLargeNoiseColorized());
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    @Override
+    public void render(float delta) {
+        render();
     }
 
     @Override
@@ -204,6 +211,11 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     @Override
     public void resume() {
         paused = false;
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
@@ -355,5 +367,5 @@ public class WarpReader extends InputAdapter implements ApplicationListener, Ges
     public void pinchStop() {
 
     }
-    
+
 }
