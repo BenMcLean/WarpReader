@@ -96,6 +96,10 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
     protected InputMultiplexer multiplexer;
     protected MenuScreen menuScreen;
 
+    public WarpViewer() {
+        create();
+    }
+
     @Override
     public void create() {
         font = new BitmapFont(Gdx.files.internal("PxPlus_IBM_VGA_8x16.fnt"));
