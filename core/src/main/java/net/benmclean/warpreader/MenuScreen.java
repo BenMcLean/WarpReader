@@ -35,14 +35,14 @@ public class MenuScreen extends ScreenAdapter {
         final Label title = new Label("MAIN MENU", skin);
         group.addActor(title);
 
-        final CheckBox checkBox = new CheckBox("Apply Shader", skin);
-//        checkBox.addListener(new ClickListener() {
-//            @Override
-//            public void clicked(InputEvent event, float x, float y) {
-//                setShader(checkBox.isChecked());
-//            }
-//        });
-        group.addActor(checkBox);
+        final TextButton screenButton = new TextButton("Model viewer", skin);
+        screenButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+        group.addActor(screenButton);
 
         final CheckBox debugCheckBox = new CheckBox("Enable Debug Rendering", skin);
         debugCheckBox.addListener(new ClickListener() {
