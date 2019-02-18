@@ -8,6 +8,6 @@ import com.badlogic.gdx.Game;
 public class WarpReader extends Game {
     @Override
     public void create() {
-        this.setScreen(new WarpViewer());
+        this.setScreen(new MenuScreen());
     }
 }

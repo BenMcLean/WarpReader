@@ -32,7 +32,7 @@ public class MenuScreen extends ScreenAdapter {
         final VerticalGroup group = new VerticalGroup();
         group.space(16);
 
-        final TextField title = new TextField("MAIN MENU", skin);
+        final Label title = new Label("MAIN MENU", skin);
         group.addActor(title);
 
         final CheckBox checkBox = new CheckBox("Apply Shader", skin);
@@ -52,6 +52,15 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
         group.addActor(debugCheckBox);
+
+        final TextButton exitButton = new TextButton ("Exit Program", skin);
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+        group.addActor(exitButton);
 
         final Window window = new Window("", skin);
         window.add(group);
