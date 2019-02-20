@@ -77,8 +77,8 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
     public static final int backgroundColor = Color.rgba8888(Color.DARK_GRAY);
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
-    public static final int VIRTUAL_WIDTH = 640;
-    public static final int VIRTUAL_HEIGHT = 360;
+    public static final int VIRTUAL_WIDTH = 848;
+    public static final int VIRTUAL_HEIGHT = 480;
     protected SpriteBatch batch;
     protected Viewport worldView;
     protected Viewport screenView;

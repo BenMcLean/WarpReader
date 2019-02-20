@@ -17,8 +17,8 @@ public class DesktopLauncher {
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.title = "WarpReader";
-        configuration.width = 640;
-        configuration.height = 480;
+        configuration.width = 1280;
+        configuration.height = 720;
 //        for (int size : new int[] { 128, 64, 32, 16 }) {
 //            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
 //        }
