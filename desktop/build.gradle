@@ -12,6 +12,7 @@ dependencies {
   compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+  compile "net.spookygames.gdx:gdx-nativefilechooser-desktop:$gdxNativeFileChooserVersion"
 }
 
 jar {

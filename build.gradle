@@ -5,6 +5,7 @@ buildscript {
         google()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
+        maven { url "http://dl.bintray.com/spookygames/oss" }
         jcenter()
     }
     dependencies {
@@ -31,11 +32,13 @@ subprojects {
     version = '0.0.1-SNAPSHOT'
     ext.appName = 'WarpReader'
     repositories {
-        mavenLocal()
         mavenCentral()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
+        maven { url "http://dl.bintray.com/spookygames/oss" }
+        google()
         jcenter()
+        mavenLocal()
     }
 }
 
