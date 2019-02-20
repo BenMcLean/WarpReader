@@ -1,27 +1,24 @@
 package net.benmclean.warpreader.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import net.benmclean.warpreader.WarpReader;
 
-/** Launches the desktop (LWJGL) application. */
+/** Launches the desktop (LWJGL3) application. */
 public class DesktopLauncher {
     public static void main(String[] args) {
         createApplication();
     }
 
-    private static LwjglApplication createApplication() {
-        return new LwjglApplication(new WarpReader(), getDefaultConfiguration());
+    private static Lwjgl3Application createApplication() {
+        return new Lwjgl3Application(new WarpReader(), getDefaultConfiguration());
     }
 
-    private static LwjglApplicationConfiguration getDefaultConfiguration() {
-        LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
-        configuration.title = "WarpReader";
-        configuration.width = 1280;
-        configuration.height = 720;
-//        for (int size : new int[] { 128, 64, 32, 16 }) {
-//            configuration.addIcon("libgdx" + size + ".png", FileType.Internal);
-//        }
-        return configuration;
+    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setTitle("WarpReader");
+        config.setWindowedMode(848, 480);
+        config.setHdpiMode(Lwjgl3ApplicationConfiguration.HdpiMode.Pixels);
+        return config;
     }
 }
