@@ -19,6 +19,7 @@ public class DesktopLauncher {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("WarpReader");
         config.setWindowedMode(WarpViewer.SCREEN_WIDTH, WarpViewer.SCREEN_HEIGHT);
+        config.setResizable(false);
         config.setHdpiMode(Lwjgl3ApplicationConfiguration.HdpiMode.Pixels);
         return config;
     }
