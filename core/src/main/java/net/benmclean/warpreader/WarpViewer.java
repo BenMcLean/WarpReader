@@ -292,6 +292,11 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
     }
 
     @Override
+    public boolean scrolled(int amount) {
+        return zoom(0f, (float) amount * -16f);
+    }
+
+    @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
     }
