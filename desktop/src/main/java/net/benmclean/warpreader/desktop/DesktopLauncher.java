@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import net.benmclean.warpreader.WarpReader;
 import net.benmclean.warpreader.WarpViewer;
+import net.spookygames.gdx.nativefilechooser.desktop.DesktopFileChooser;
 
 /** Launches the desktop (LWJGL3) application. */
 public class DesktopLauncher {
@@ -12,6 +13,7 @@ public class DesktopLauncher {
     }
 
     private static Lwjgl3Application createApplication() {
+        WarpReader.fileChooser = new DesktopFileChooser();
         return new Lwjgl3Application(new WarpReader(), getDefaultConfiguration());
     }
 

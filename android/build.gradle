@@ -41,7 +41,7 @@ dependencies {
   compile project(':core')
   compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   compile "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-  compile "net.spookygames.gdx:gdx-nativefilechooser-desktop:$gdxNativeFileChooserVersion"
+  compile "net.spookygames.gdx:gdx-nativefilechooser-android:$gdxNativeFileChooserVersion"
 
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

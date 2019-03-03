@@ -47,6 +47,17 @@ public class MenuScreen extends ScreenAdapter {
         });
         group.addActor(screenButton);
 
+        if (WarpReader.fileChooser != null) {
+            final TextButton loadButton = new TextButton("Load model", skin);
+            loadButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+//                game.setScreen(WarpReader.warpViewer);
+                }
+            });
+            group.addActor(loadButton);
+        }
+
         final CheckBox debugCheckBox = new CheckBox("Enable Debug Rendering", skin);
         debugCheckBox.addListener(new ClickListener() {
             @Override
@@ -71,7 +82,7 @@ public class MenuScreen extends ScreenAdapter {
 //        window.align(Align.center);
 //        window.align(Align.top);
         window.setOrigin(window.getWidth() / 2, window.getHeight() / 2);
-        window.setPosition(VIRTUAL_WIDTH / 2 - (window.getWidth() / 2), VIRTUAL_HEIGHT / 2 - (window.getHeight() / 2));
+        window.setPosition((VIRTUAL_WIDTH - window.getWidth()) / 2, (VIRTUAL_HEIGHT - window.getHeight()) / 2);
         stage.addActor(window);
     }
 
