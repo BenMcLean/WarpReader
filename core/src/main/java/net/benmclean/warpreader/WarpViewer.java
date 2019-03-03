@@ -133,6 +133,8 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
         shader = new ShaderProgram(vertexShader, fragmentShader);
         if (!shader.isCompiled()) throw new GdxRuntimeException("Couldn't compile shader: " + shader.getLog());
 
+        Gdx.input.setCatchMenuKey(true);
+
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
@@ -314,6 +316,7 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
             case Input.Keys.T: // try again
                 voxelSprite.reset();
                 break;
+            case Input.Keys.BACK:
             case Input.Keys.M:
                 game.setScreen(WarpReader.menuScreen);
                 break;
