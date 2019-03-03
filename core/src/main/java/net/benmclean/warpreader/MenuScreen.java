@@ -3,6 +3,7 @@ package net.benmclean.warpreader;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,6 +14,11 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import net.benmclean.utils.AtlasRepacker;
 import net.benmclean.utils.Palette4;
+import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
+import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 public class MenuScreen extends ScreenAdapter {
     public static final int VIRTUAL_WIDTH = 640;
@@ -52,7 +58,38 @@ public class MenuScreen extends ScreenAdapter {
             loadButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-//                game.setScreen(WarpReader.warpViewer);
+                    NativeFileChooserConfiguration conf = new NativeFileChooserConfiguration();
+
+// Starting from user's dir
+                    conf.directory = Gdx.files.absolute(System.getProperty("user.home"));
+
+//                    conf.mimeFilter = "audio/*";
+                    conf.nameFilter = new FilenameFilter() {
+                        @Override
+                        public boolean accept(File dir, String name) {
+                            return name.endsWith("vox");
+                        }
+                    };
+
+// Add a nice title
+                    conf.title = "Choose .VOX model";
+
+                    WarpReader.fileChooser.chooseFile(conf, new NativeFileChooserCallback() {
+                        @Override
+                        public void onFileChosen(FileHandle file) {
+                            // Do stuff with file, yay!
+                        }
+
+                        @Override
+                        public void onCancellation() {
+                            // Warn user how rude it can be to cancel developer's effort
+                        }
+
+                        @Override
+                        public void onError(Exception exception) {
+                            // Handle error (hint: use exception type)
+                        }
+                    });
                 }
             });
             group.addActor(loadButton);

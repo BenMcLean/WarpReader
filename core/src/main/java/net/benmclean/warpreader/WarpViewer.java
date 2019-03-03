@@ -17,16 +17,21 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import warpwriter.Coloring;
 import warpwriter.ModelMaker;
+import warpwriter.VoxIO;
 import warpwriter.model.IModel;
 import warpwriter.model.color.Colorizer;
 import warpwriter.model.fetch.ArrayModel;
 import warpwriter.model.fetch.BoxModel;
 import warpwriter.model.fetch.ColorFetch;
+import warpwriter.model.nonvoxel.LittleEndianDataInputStream;
 import warpwriter.view.VoxelSprite;
+import warpwriter.view.color.Dimmer;
 import warpwriter.view.render.VoxelSpriteBatchRenderer;
 
-public class WarpViewer extends InputAdapter implements ApplicationListener, GestureDetector.GestureListener, Screen {
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
+public class WarpViewer extends InputAdapter implements ApplicationListener, GestureDetector.GestureListener, Screen {
     /**
      * This is the default vertex shader from libGDX.
      */
@@ -141,6 +146,25 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
 
     public IModel model() {
         return new ArrayModel(maker.shipLargeNoiseColorized());
+    }
+
+    public void load(String name) {
+        try {
+            //// loads a file by its full path, which we get via drag+drop
+            final byte[][][] arr = VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream(name)));
+            //// set the palette to the one from the vox model, using arbitraryDimmer()
+            batchRenderer.set(batchRenderer.color().set(Dimmer.arbitraryDimmer(VoxIO.lastPalette)));
+            voxelSprite.set(new ArrayModel(
+                    arr
+                    //// Aurora folder has vox models with a different palette, which involves a different IDimmer.
+                    //VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream("Aurora/Warrior_Male_W.vox")))
+                    // If using Rinsed, use the line below instead of the one above.
+                    //maker.warriorRandom()
+            ));
+        } catch (FileNotFoundException e) {
+            voxelSprite.set(new ArrayModel(maker.shipNoiseColorized()));
+//            batchRenderer.set(batchRenderer.color().set(colorizer));
+        }
     }
 
     @Override

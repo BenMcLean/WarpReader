@@ -16,4 +16,8 @@ public class WarpReader extends Game {
         warpViewer.game = this;
         this.setScreen(warpViewer);
     }
+
+    public static void load(String name) {
+        warpViewer.load(name);
+    }
 }
