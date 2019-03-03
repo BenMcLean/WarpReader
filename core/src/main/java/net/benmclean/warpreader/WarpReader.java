@@ -1,7 +1,10 @@
 package net.benmclean.warpreader;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.files.FileHandle;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
+
+import java.io.File;
 
 public class WarpReader extends Game {
     public static MenuScreen menuScreen;
@@ -19,5 +22,9 @@ public class WarpReader extends Game {
 
     public static void load(String name) {
         warpViewer.load(name);
+    }
+
+    public static void load(File file) {
+        warpViewer.load(file);
     }
 }

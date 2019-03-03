@@ -78,6 +78,8 @@ public class MenuScreen extends ScreenAdapter {
                         @Override
                         public void onFileChosen(FileHandle file) {
                             // Do stuff with file, yay!
+                            WarpReader.load(file.file());
+                            game.setScreen(WarpReader.warpViewer);
                         }
 
                         @Override
@@ -88,6 +90,7 @@ public class MenuScreen extends ScreenAdapter {
                         @Override
                         public void onError(Exception exception) {
                             // Handle error (hint: use exception type)
+                            throw new RuntimeException(exception);
                         }
                     });
                 }

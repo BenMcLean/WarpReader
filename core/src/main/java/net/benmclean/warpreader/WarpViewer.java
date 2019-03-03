@@ -1,6 +1,7 @@
 package net.benmclean.warpreader;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -28,6 +29,7 @@ import warpwriter.view.VoxelSprite;
 import warpwriter.view.color.Dimmer;
 import warpwriter.view.render.VoxelSpriteBatchRenderer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -150,21 +152,28 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
 
     public void load(String name) {
         try {
-            //// loads a file by its full path, which we get via drag+drop
-            final byte[][][] arr = VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream(name)));
-            //// set the palette to the one from the vox model, using arbitraryDimmer()
-            batchRenderer.set(batchRenderer.color().set(Dimmer.arbitraryDimmer(VoxIO.lastPalette)));
-            voxelSprite.set(new ArrayModel(
-                    arr
-                    //// Aurora folder has vox models with a different palette, which involves a different IDimmer.
-                    //VoxIO.readVox(new LittleEndianDataInputStream(new FileInputStream("Aurora/Warrior_Male_W.vox")))
-                    // If using Rinsed, use the line below instead of the one above.
-                    //maker.warriorRandom()
-            ));
+            load(new FileInputStream(name));
         } catch (FileNotFoundException e) {
             voxelSprite.set(new ArrayModel(maker.shipNoiseColorized()));
 //            batchRenderer.set(batchRenderer.color().set(colorizer));
         }
+    }
+
+    public void load(File file) {
+        try {
+            load(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            voxelSprite.set(new ArrayModel(maker.shipNoiseColorized()));
+//            batchRenderer.set(batchRenderer.color().set(colorizer));
+        }
+    }
+
+    public void load(FileInputStream input) {
+        // loads a file by its full path, which we get via drag+drop
+        final byte[][][] arr = VoxIO.readVox(new LittleEndianDataInputStream(input));
+        // set the palette to the one from the vox model, using arbitraryDimmer()
+        batchRenderer.set(batchRenderer.color().set(Dimmer.arbitraryDimmer(VoxIO.lastPalette)));
+        voxelSprite.set(new ArrayModel(arr));
     }
 
     @Override
