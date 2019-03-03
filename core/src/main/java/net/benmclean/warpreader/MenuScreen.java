@@ -9,13 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import net.benmclean.utils.AtlasRepacker;
 import net.benmclean.utils.Palette4;
 
 public class MenuScreen extends ScreenAdapter {
-    public static final int VIRTUAL_WIDTH = 852;
-    public static final int VIRTUAL_HEIGHT = 480;
+    public static final int VIRTUAL_WIDTH = 640;
+    public static final int VIRTUAL_HEIGHT = 360;
 
     public Game game;
     private Skin skin;
@@ -55,7 +56,7 @@ public class MenuScreen extends ScreenAdapter {
         });
         group.addActor(debugCheckBox);
 
-        final TextButton exitButton = new TextButton ("Exit Program", skin);
+        final TextButton exitButton = new TextButton("Exit Program", skin);
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -67,6 +68,10 @@ public class MenuScreen extends ScreenAdapter {
         final Window window = new Window("", skin);
         window.add(group);
         window.setSize(window.getPrefWidth(), window.getPrefHeight());
+//        window.align(Align.center);
+//        window.align(Align.top);
+        window.setOrigin(window.getWidth() / 2, window.getHeight() / 2);
+        window.setPosition(VIRTUAL_WIDTH / 2 - (window.getWidth() / 2), VIRTUAL_HEIGHT / 2 - (window.getHeight() / 2));
         stage.addActor(window);
     }
 
