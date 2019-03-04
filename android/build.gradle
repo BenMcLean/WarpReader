@@ -1,7 +1,7 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 25
+  compileSdkVersion 28
   sourceSets {
     main {
       manifest.srcFile 'AndroidManifest.xml'
@@ -9,7 +9,7 @@ android {
       aidl.srcDirs = ['src/main/java']
       renderscript.srcDirs = ['src/main/java']
       res.srcDirs = ['res']
-      //assets.srcDirs = ['../assets']
+      assets.srcDirs = ['../assets']
       jniLibs.srcDirs = ['libs']
     }
   }
@@ -31,7 +31,7 @@ android {
   defaultConfig {
     applicationId 'net.benmclean.warpreader'
     minSdkVersion 8
-    targetSdkVersion 25
+    targetSdkVersion 28
   }
 }
 

@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import net.benmclean.utils.AtlasRepacker;
 import net.benmclean.utils.Palette4;
@@ -29,6 +28,10 @@ public class MenuScreen extends ScreenAdapter {
     private Stage stage;
 
     public MenuScreen() {
+    }
+
+    @Override
+    public void show() {
         stage = new Stage(new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT));
         skin = new Skin(
                 Gdx.files.internal("DOS/uiskin.json"),
@@ -124,10 +127,7 @@ public class MenuScreen extends ScreenAdapter {
         window.setOrigin(window.getWidth() / 2, window.getHeight() / 2);
         window.setPosition((VIRTUAL_WIDTH - window.getWidth()) / 2, (VIRTUAL_HEIGHT - window.getHeight()) / 2);
         stage.addActor(window);
-    }
 
-    @Override
-    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
 
