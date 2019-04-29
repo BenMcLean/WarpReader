@@ -57,7 +57,7 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
      */
     public static final String fragmentShader = "#ifdef GL_ES\n" +
             "#define LOWP lowp\n" +
-            "precision mediump float;\n" +
+            "precision mediump int;\n" +
             "#else\n" +
             "#define LOWP\n" +
             "#endif\n" +
@@ -68,10 +68,8 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
             "uniform sampler2D u_texture;\n" +
             "void main()\n" +
             "{\n" +
-            "   vec2 offsetx;\n" +
-            "   offsetx.x = outlineW;\n" +
-            "   vec2 offsety;\n" +
-            "   offsety.y = outlineH;\n" +
+            "   vec2 offsetx = vec2(outlineW, 0.0);\n" +
+            "   vec2 offsety = vec2(0.0, outlineH);\n" +
             "   float alpha = texture2D( u_texture, v_texCoords ).a;\n" +
             "   alpha = max(alpha, texture2D( u_texture, v_texCoords + offsetx).a);\n" +
             "   alpha = max(alpha, texture2D( u_texture, v_texCoords - offsetx).a);\n" +
