@@ -10,5 +10,5 @@ dependencies {
     compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
     compile "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion"
     compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
-    compile "net.spookygames.gdx:gdx-nativefilechooser-desktop:$gdxNativeFileChooserVersion"
+    compile "com.github.BenMcLean.gdx-nativefilechooser:core:$gdxNativeFileChooserVersion"
 }
