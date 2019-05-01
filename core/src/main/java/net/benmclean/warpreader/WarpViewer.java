@@ -1,7 +1,6 @@
 package net.benmclean.warpreader;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -57,7 +56,7 @@ public class WarpViewer extends InputAdapter implements ApplicationListener, Ges
      */
     public static final String fragmentShader = "#ifdef GL_ES\n" +
             "#define LOWP lowp\n" +
-            "precision mediump int;\n" +
+            "precision mediump float;\n" +
             "#else\n" +
             "#define LOWP\n" +
             "#endif\n" +

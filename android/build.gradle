@@ -30,13 +30,18 @@ android {
   }
   defaultConfig {
     applicationId 'net.benmclean.warpreader'
-    minSdkVersion 8
+    minSdkVersion 14
     targetSdkVersion 28
   }
 }
 
 configurations { natives }
-
+repositories {
+  mavenLocal()
+  maven { url "https://jitpack.io" }
+  google()
+  jcenter()
+}
 dependencies {
   compile project(':core')
   compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
@@ -48,7 +53,6 @@ dependencies {
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-
 }
 
 // Called every time gradle gets executed, takes the native dependencies of
