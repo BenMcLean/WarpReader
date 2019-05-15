@@ -1,15 +1,8 @@
-
-apply plugin: "java"
 apply plugin: "gwt"
 apply plugin: "war"
 
-import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
-
-def HttpFileServer server = null
-def httpFilePort = 9090
-
 gwt {
-  gwtVersion = gwtFrameworkVersion // Should match the version used for building the GWT backend. See gradle.properties.
+  gwtVersion = "$gwtFrameworkVersion" // Should match the version used for building the GWT backend. See gradle.properties.
   maxHeapSize = '1G' // Default 256m is not enough for the GWT compiler. GWT is HUNGRY.
   minHeapSize = '1G'
 
@@ -22,44 +15,42 @@ gwt {
   compiler.disableCastChecking = true
 }
 
-dependencies {
-  compile project(':core')
-  compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-  compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-  compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
-  compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
-  compile "com.sudoplay.joise:joise:$joiseVersion:sources"
-  compile "com.github.czyzby:noise4j:$noise4jVersion:sources"
-  compile "com.github.tommyettinger:regexodus:$regExodusVersion:sources"
-  compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion:sources"
-  compile "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion:sources"
-  compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion:sources"
+import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
 
+def HttpFileServer server = null
+def httpFilePort = 9090
 
-}
-
-task startHttpServer() {
+task startHttpServer () {
     dependsOn draftCompileGwt
-
-    String output = project.buildDir.path + "/gwt/draftOut";
-
+    String output = project.buildDir.path + "/gwt/draftOut"
     doLast {
         copy {
             from "webapp"
             into output
         }
-
         copy {
             from "war"
             into output
         }
-
         server = new SimpleHttpFileServerFactory().start(new File(output), httpFilePort)
-
-        println "Server started in directory " + server.getContentRoot() + ", port " + server.getPort()
+        println "Server started in directory " + server.getContentRoot() + ", http://localhost:" + server.getPort() + "/index.html"
     }
+}
+
+dependencies {
+    api project(':core')
+    api "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    api "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion:sources"
+    api "com.github.tommyettinger:regexodus:$regExodusVersion:sources"
+    api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
+    api "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
+    api "com.sudoplay.joise:joise:$joiseVersion:sources"
+    api "com.github.czyzby:noise4j:$noise4jVersion:sources"
+    api "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion:sources"
+    api "com.github.tommyettinger:WarpWriter:$warpWriterVersion:sources"
 }
 
 task superDev(type: GwtSuperDev) {
@@ -79,7 +70,7 @@ task dist(dependsOn: [clean, compileGwt]) {
         copy {
             from "webapp"
             into "build/dist"
-            }
+        }
         copy {
             from "war"
             into "build/dist"
@@ -87,13 +78,15 @@ task dist(dependsOn: [clean, compileGwt]) {
     }
 }
 task addSource {
-  doLast {
-    sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
-
-  }
+    doLast {
+        sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
+    }
 }
 
 tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
+
+sourceCompatibility = 1.7
+sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 
 eclipse.project.name = appName + "-gwt"

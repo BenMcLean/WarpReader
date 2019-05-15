@@ -38,15 +38,16 @@ android {
 configurations { natives }
 repositories {
   mavenLocal()
+  mavenCentral()
   maven { url "https://jitpack.io" }
   google()
   jcenter()
 }
 dependencies {
-  compile project(':core')
-  compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-  compile "com.github.BenMcLean.gdx-nativefilechooser:android:$gdxNativeFileChooserVersion"
+  api project(':core')
+  api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
+  api "com.github.BenMcLean.gdx-nativefilechooser:android:$gdxNativeFileChooserVersion"
 
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

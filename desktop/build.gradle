@@ -1,28 +1,26 @@
 apply plugin: 'application'
 
 //sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
+sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
 mainClassName = 'net.benmclean.warpreader.desktop.DesktopLauncher'
 eclipse.project.name = appName + '-desktop'
 sourceCompatibility = 1.7
 
 dependencies {
-  compile project(':core')
-  compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-  compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
-  compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
-  compile "com.github.BenMcLean.gdx-nativefilechooser:desktop:$gdxNativeFileChooserVersion"
+  api project(':core')
+  api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+  api "com.github.BenMcLean.gdx-nativefilechooser:desktop:$gdxNativeFileChooserVersion"
 }
 
 jar {
-  archiveName "${appName}-${version}.jar"
-  from { configurations.compile.collect { zipTree(it) } }
+  archiveFileName = "${appName}-${version}.jar"
+  from files(sourceSets.main.output.classesDirs)
+  from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
   manifest {
     attributes 'Main-Class': project.mainClassName
   }
-}
-
-run {
-  ignoreExitValue = true
 }

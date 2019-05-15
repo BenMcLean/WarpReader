@@ -2,13 +2,13 @@
 eclipse.project.name = appName + '-core'
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
 dependencies {
-    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-    compile "com.sudoplay.joise:joise:$joiseVersion"
-    compile "com.github.czyzby:noise4j:$noise4jVersion"
-    compile "com.github.tommyettinger:regexodus:$regExodusVersion"
-    compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
-    compile "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion"
-    compile "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
-    compile "com.github.BenMcLean.gdx-nativefilechooser:core:$gdxNativeFileChooserVersion"
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+    api "com.sudoplay.joise:joise:$joiseVersion"
+    api "com.github.czyzby:noise4j:$noise4jVersion"
+    api "com.github.tommyettinger:regexodus:$regExodusVersion"
+    api "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
+    api "com.github.SquidPony.SquidLib:squidlib-util:$squidLibVersion"
+    api "com.github.tommyettinger:WarpWriter:$warpWriterVersion"
+    api "com.github.BenMcLean.gdx-nativefilechooser:core:$gdxNativeFileChooserVersion"
 }
